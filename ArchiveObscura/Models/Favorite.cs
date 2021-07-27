@@ -7,5 +7,8 @@ namespace ArchiveObscura.Models
 {
     public class Favorite
     {
+        public int Id { get; set; }
+        public int RecordId { get; set; }
+        public int UserProfileId { get; set; }
     }
 }
