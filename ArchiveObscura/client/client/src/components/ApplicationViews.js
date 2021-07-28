@@ -1,21 +1,19 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import QuoteList from "./QuoteList";
-import QuoteAddForm from "./QuoteAddForm";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
         <main>
             <Switch>
-                <Route path="/" exact>
+                {/* <Route path="/" exact>
                     {isLoggedIn ? <QuoteList /> : <Redirect to="/login" />}
-                </Route>
+                </Route> */}
 
-                <Route path="/add">
+                {/* <Route path="/add">
                     {isLoggedIn ? <QuoteAddForm /> : <Redirect to="/login" />}
-                </Route>
+                </Route> */}
 
                 <Route path="/login">
                     <Login />
