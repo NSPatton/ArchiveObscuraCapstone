@@ -15,5 +15,6 @@ namespace ArchiveObscura.Models
         public DateTime DatePosted { get; set; }
         public int TagId { get; set; }
         public int UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 }
