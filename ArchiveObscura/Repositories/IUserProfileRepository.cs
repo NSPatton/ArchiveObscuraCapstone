@@ -6,9 +6,11 @@ using ArchiveObscura.Models;
 
 namespace ArchiveObscura.Repositories
 {
-    interface IUserProfileRepository
+    public interface IUserProfileRepository
     {
         void Add(UserProfile userProfile);
-        UserProfile GetFirebaseUserId(string firebaseUserId);
+        UserProfile GetByFirebaseUserId(string firebaseUserId);
+        UserProfile GetByUserId(int id);
+        List<UserProfile> GetAllUserProfiles();
     }
 }
