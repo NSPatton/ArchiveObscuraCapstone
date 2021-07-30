@@ -119,7 +119,50 @@ namespace ArchiveObscura.Repositories
 
         public List<Record> GetUserRecords(string FirebaseUserId)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl,
+                                    r.DatePosted, r.TagId, r.UserProfileId, up.Name AS UserProfileName
+                                    FROM Record r
+                                    LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
+                                    LEFT JOIN Tag t ON r.TagId = t.Id
+                                    WHERE r.Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@FirebaseUserId", FirebaseUserId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var records = new List<Record>();
+
+                    while (reader.Read())
+                    {
+                        records.Add(new Record()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            ArtistName = DbUtils.GetString(reader, "ArtistName"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            DatePosted = DbUtils.GetDateTime(reader, "DatePosted"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl")
+                            },
+                        });
+                    }
+                    reader.Close();
+
+                    return records;
+                }
+            }
         }
 
         public List<Record> Search(string criterion, bool sortDescending)
