@@ -25,7 +25,7 @@ namespace ArchiveObscura.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl, r.DatePosted
+                                SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl, r.DatePosted,
                                     r.TagId, r.UserProfileId,
 
                                     t.Name,
@@ -34,7 +34,7 @@ namespace ArchiveObscura.Repositories
                                 FROM Record r
                                 LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                 LEFT JOIN Tag t ON r.TagId = t.Id
-                                ORDER BY DateCreated";
+                                ORDER BY DatePosted";
 
                     var reader = cmd.ExecuteReader();
 
@@ -48,7 +48,7 @@ namespace ArchiveObscura.Repositories
                             ArtistName = DbUtils.GetString(reader, "ArtistName"),
                             Description = DbUtils.GetString(reader, "Description"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
-                            DatePosted = DbUtils.GetDateTime(reader, "DateCreated"),
+                            DatePosted = DbUtils.GetDateTime(reader, "DatePosted"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
