@@ -161,7 +161,7 @@ namespace ArchiveObscura.Repositories
                 {
                     cmd.CommandText = @"
                             SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl,
-                                    r.DatePosted, r.TagId, r.UserProfileId, up.Name AS UserProfileName, up.Email, up.UserProfileImageUrl
+                                    r.DatePosted, r.TagId, r.UserProfileId, up.Name AS UserProfileName, up.Email, up.ImageUrl AS UserProfileImageUrl
                                     FROM Record r
                                     LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                     LEFT JOIN Tag t ON r.TagId = t.Id

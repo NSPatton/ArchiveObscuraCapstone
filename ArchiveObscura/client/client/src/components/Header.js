@@ -28,7 +28,7 @@ export default function Header({ isLoggedIn }) {
                                     <NavLink tag={RRNavLink} to="/add">Create Record</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/record">My Records</NavLink>
+                                    <NavLink tag={RRNavLink} to="/myRecord">My Records</NavLink>
                                 </NavItem>
 
                                 <NavItem>

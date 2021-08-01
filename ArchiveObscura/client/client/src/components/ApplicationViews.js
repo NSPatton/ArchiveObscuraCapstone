@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import RecordList from "./records/RecordList";
+import MyRecord from "./records/MyRecord";
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
@@ -10,6 +11,10 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Switch>
                 <Route path="/" exact>
                     {isLoggedIn ? <RecordList /> : <Redirect to="/login" />}
+                </Route>
+
+                <Route exact path="/myRecord">
+                    {isLoggedIn ? <MyRecord /> : <Redirect to="/login" />}
                 </Route>
 
                 {/* <Route path="/add">
