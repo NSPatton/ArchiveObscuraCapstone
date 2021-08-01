@@ -18,3 +18,11 @@ export const getAllRecords = () => {
         });
     });
 };
+
+// export const getUserRecords = () => {
+//     return getToken().then((token) => {
+//         return fetch(baseUrl, {
+//             method
+//         })
+//     })
+// }

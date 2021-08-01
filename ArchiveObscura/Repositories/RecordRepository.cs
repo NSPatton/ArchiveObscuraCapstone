@@ -14,7 +14,42 @@ namespace ArchiveObscura.Repositories
 
         public void AddRecord(Record record)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Record (Title, ArtistName, Description, DatePosted, ImageUrl, TagId, UserProfileId)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Title, @ArtistName, @Description, @DatePosted, @ImageUrl, @TagId, @UserProfileId)";
+
+                    DbUtils.AddParameter(cmd, "@Title", record.Title);
+                    DbUtils.AddParameter(cmd, "@ArtistName", record.ArtistName);
+                    DbUtils.AddParameter(cmd, "@Description", record.Description);
+                    DbUtils.AddParameter(cmd, "@DatePosted", record.DatePosted);
+                    DbUtils.AddParameter(cmd, "@ImageUrl", record.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@TagId", record.TagId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", record.UserProfileId);
+
+                    record.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void Delete(int recordId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Record WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", recordId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Record> GetAllRecords()
@@ -130,7 +165,7 @@ namespace ArchiveObscura.Repositories
                                     FROM Record r
                                     LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                     LEFT JOIN Tag t ON r.TagId = t.Id
-                                    WHERE r.Id = @Id";
+                                    WHERE u.FirebaseUserId = @FirebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", FirebaseUserId);
 
@@ -172,7 +207,34 @@ namespace ArchiveObscura.Repositories
 
         public void UpdateRecord(Record record)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE Record
+                            SET Title = @Title,
+                                ArtistName = @ArtistName,
+                                Description = @Description,
+                                DatePosted = @DatePosted,
+                                ImageUrl = @ImageUrl,
+                                TagId = @TagId,
+                                UserProfileId = @UserProfileId
+                            WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Title", record.Title);
+                    DbUtils.AddParameter(cmd, "@ArtistName", record.ArtistName);
+                    DbUtils.AddParameter(cmd, "@Description", record.Description);
+                    DbUtils.AddParameter(cmd, "@DatePosted", record.DatePosted);
+                    DbUtils.AddParameter(cmd, "@ImageUrl", record.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@TagId", record.TagId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", record.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@Id", record.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

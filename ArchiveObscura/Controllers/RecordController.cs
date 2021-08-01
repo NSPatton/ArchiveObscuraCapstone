@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using ArchiveObscura.Models;
 
 namespace ArchiveObscura.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecordController : ControllerBase
@@ -41,6 +43,26 @@ namespace ArchiveObscura.Controllers
                 var records = _recordRepo.GetUserRecords(user.FirebaseUserId);
                 return Ok(records);
             }
+        }
+
+        [HttpPost]
+        public IActionResult CreateRecord(Record record)
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+            record.UserProfileId = currentUserProfile.Id;
+            _recordRepo.AddRecord(record);
+            return CreatedAtAction(nameof(Get), new { id = record.Id }, record);
+        }
+
+        [HttpGet("GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var record = _recordRepo.GetRecordById(id);
+            if (record == null)
+            {
+                return NotFound();
+            }
+            return Ok(record);
         }
 
         private UserProfile GetCurrentUserProfile()

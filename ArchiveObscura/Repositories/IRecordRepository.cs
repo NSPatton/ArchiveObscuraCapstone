@@ -12,6 +12,7 @@ namespace ArchiveObscura.Repositories
         Record GetRecordById(int id);
         void AddRecord(Record record);
         void UpdateRecord(Record record);
+        void Delete(int recordId);
         List<Record> Search(string criterion, bool sortDescending);
         List<Record> GetUserRecords(string FirebaseUserId);
            
