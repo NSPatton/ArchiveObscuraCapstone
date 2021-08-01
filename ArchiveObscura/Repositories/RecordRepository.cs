@@ -161,11 +161,11 @@ namespace ArchiveObscura.Repositories
                 {
                     cmd.CommandText = @"
                             SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl,
-                                    r.DatePosted, r.TagId, r.UserProfileId, up.Name AS UserProfileName
+                                    r.DatePosted, r.TagId, r.UserProfileId, up.Name AS UserProfileName, up.Email, up.UserProfileImageUrl
                                     FROM Record r
                                     LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                     LEFT JOIN Tag t ON r.TagId = t.Id
-                                    WHERE u.FirebaseUserId = @FirebaseUserId";
+                                    WHERE FirebaseUserId = @FirebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", FirebaseUserId);
 
@@ -187,7 +187,7 @@ namespace ArchiveObscura.Repositories
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                Name = DbUtils.GetString(reader, "Name"),
+                                Name = DbUtils.GetString(reader, "UserProfileName"),
                                 Email = DbUtils.GetString(reader, "Email"),
                                 ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl")
                             },
