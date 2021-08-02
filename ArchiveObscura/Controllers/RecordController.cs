@@ -50,6 +50,7 @@ namespace ArchiveObscura.Controllers
         {
             var currentUserProfile = GetCurrentUserProfile();
             record.UserProfileId = currentUserProfile.Id;
+            record.DatePosted = DateTime.Now;
             _recordRepo.AddRecord(record);
             return CreatedAtAction(nameof(Get), new { id = record.Id }, record);
         }
