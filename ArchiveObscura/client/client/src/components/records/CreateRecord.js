@@ -12,7 +12,7 @@ const RecordForm = () => {
         imageUrl: ""
     })
 
-    history = useHistory();
+    const history = useHistory();
 
     const handleSave = (event) => {
         event.preventDefault();
@@ -39,7 +39,10 @@ const RecordForm = () => {
                     <Input id="imageUrl" type="text" imageUrl="imageUrl" placeholder="ImageUrl"
                         defaultValue={record.imageUrl} onChange={event => setRecord({ imageUrl: event.target.value })} />
                 </FormGroup>
+                <Button className="btn btn-primary">Submit</Button>
             </Form>
         </>
     )
 }
+
+export default RecordForm;
