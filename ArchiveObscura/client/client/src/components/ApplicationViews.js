@@ -18,7 +18,11 @@ export default function ApplicationViews({ isLoggedIn }) {
                 </Route>
 
                 {/* <Route path="/add">
-                    {isLoggedIn ? <QuoteAddForm /> : <Redirect to="/login" />}
+                    {isLoggedIn ? <CreateRecord /> : <Redirect to="/login" />}
+                </Route> */}
+
+                {/* <Route path="/edit">
+                    {isLoggedIn ? <UpdateRecord /> : <Redirect to="/login" />}
                 </Route> */}
 
                 <Route path="/login">
@@ -29,6 +33,6 @@ export default function ApplicationViews({ isLoggedIn }) {
                     <Register />
                 </Route>
             </Switch>
-        </main>
+        </main >
     );
 };
