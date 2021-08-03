@@ -67,7 +67,7 @@ namespace ArchiveObscura.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var record = _recordRepo.GetRecordById(id);

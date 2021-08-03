@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import RecordList from "./records/RecordList";
 import MyRecord from "./records/MyRecord";
 import CreateRecord from "./records/CreateRecord";
+import UpdateRecord from "./records/UpdateRecord";
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
@@ -22,9 +23,9 @@ export default function ApplicationViews({ isLoggedIn }) {
                     {isLoggedIn ? <CreateRecord /> : <Redirect to="/login" />}
                 </Route>
 
-                {/* <Route path="/edit">
+                <Route path="/edit/:id">
                     {isLoggedIn ? <UpdateRecord /> : <Redirect to="/login" />}
-                </Route> */}
+                </Route>
 
                 <Route path="/login">
                     <Login />
