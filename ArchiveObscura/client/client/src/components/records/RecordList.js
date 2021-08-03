@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllRecords } from "../../modules/recordManager";
+import { deleteRecord, getAllRecords } from "../../modules/recordManager";
 import Record from "./Record"
 
 const RecordList = () => {
@@ -19,7 +19,7 @@ const RecordList = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     {records.map((record) => (
-                        <Record record={record} key={record.id} />
+                        <Record record={record} getRecords={getRecords} key={record.id} />
                     ))}
                 </div>
             </div>
