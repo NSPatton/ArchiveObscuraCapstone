@@ -24,6 +24,7 @@ namespace ArchiveObscura
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IRecordRepository, RecordRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
