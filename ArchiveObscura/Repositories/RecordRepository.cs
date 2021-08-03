@@ -133,7 +133,13 @@ namespace ArchiveObscura.Repositories
                             ArtistName = DbUtils.GetString(reader, "ArtistName"),
                             Description = DbUtils.GetString(reader, "Description"),
                             DatePosted = DbUtils.GetDateTime(reader, "DatePosted"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                             TagId = DbUtils.GetInt(reader, "TagId"),
+                            Tag = new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {

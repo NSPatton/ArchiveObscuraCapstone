@@ -17,7 +17,7 @@ namespace ArchiveObscura.Controllers
         }
 
         [HttpGet("{firebaseUserId}")]
-        public IActionResult GetFirebaseUserId(string firebaseUserId)
+        public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {
             var userProfile = _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
             if (userProfile == null)
@@ -38,13 +38,13 @@ namespace ArchiveObscura.Controllers
             return Ok();
         }
 
-        //[HttpPost]
-        //public IActionResult Register(UserProfile userProfile)
-        //{
-        //    _userProfileRepo.Add(userProfile);
-        //    return CreatedAtAction(
-        //        nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
-        //}
-            
+        [HttpPost]
+        public IActionResult Register(UserProfile userProfile)
+        {
+            _userProfileRepo.Add(userProfile);
+            return CreatedAtAction(
+                nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
+        }
+
     }
 }
