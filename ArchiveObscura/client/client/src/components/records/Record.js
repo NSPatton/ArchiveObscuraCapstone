@@ -27,6 +27,11 @@ const Record = ({ record, getRecords }) => {
                     </Link>
                 </p>
                 <p>{record.title}</p>
+                <div className="editbutton">
+                    <Link to={`/edit/${record.id}`}>
+                        <button type="button" className="btn-primary-edit">Edit</button>
+                    </Link>
+                </div>
                 <button color="danger" onClick={deleteARecord}>Delete</button>
             </CardBody>
         </Card>

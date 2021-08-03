@@ -59,7 +59,7 @@ export const addRecord = (record) => {
 
 export const getRecordById = (id) => {
     return getToken().then((token) => {
-        return fetch(`${baseUrl}/GetById/${id}`, {
+        return fetch(`${baseUrl}/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
