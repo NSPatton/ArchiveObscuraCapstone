@@ -44,7 +44,8 @@ namespace ArchiveObscura.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Record WHERE Id = @id";
+                    cmd.CommandText = @"DELETE FROM Record WHERE Id = @id
+                                        DELETE FROM ";
 
                     DbUtils.AddParameter(cmd, "@id", recordId);
                     cmd.ExecuteNonQuery();

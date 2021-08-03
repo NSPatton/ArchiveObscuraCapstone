@@ -5,6 +5,7 @@ using ArchiveObscura.Repositories;
 
 namespace ArchiveObscura.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
