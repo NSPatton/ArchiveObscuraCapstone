@@ -32,9 +32,10 @@ const Record = ({ record, getRecords }) => {
                         <button type="button" className="btn-primary-edit">Edit</button>
                     </Link>
                 </div>
+                <Link to={`/details/${record.id}`}><button>Details</button></Link>
                 <button color="danger" onClick={deleteARecord}>Delete</button>
             </CardBody>
-        </Card>
+        </Card >
     )
 }
 
