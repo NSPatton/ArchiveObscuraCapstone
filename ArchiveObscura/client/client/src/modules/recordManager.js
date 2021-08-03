@@ -56,3 +56,38 @@ export const addRecord = (record) => {
         })
     })
 }
+
+export const getRecordById = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/GetById/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => res.json())
+    })
+}
+
+export const updateRecord = (record) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${record.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(record)
+        })
+    })
+}
+
+export const deleteRecord = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    })
+}

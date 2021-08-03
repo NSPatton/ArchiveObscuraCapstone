@@ -55,6 +55,18 @@ namespace ArchiveObscura.Controllers
             return CreatedAtAction(nameof(Get), new { id = record.Id }, record);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Record record)
+        {
+            if (id != record.Id)
+            {
+                return BadRequest();
+            }
+
+            _recordRepo.UpdateRecord(record);
+            return NoContent();
+        }
+
         [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
@@ -64,6 +76,13 @@ namespace ArchiveObscura.Controllers
                 return NotFound();
             }
             return Ok(record);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _recordRepo.Delete(id);
+            return NoContent();
         }
 
         private UserProfile GetCurrentUserProfile()
