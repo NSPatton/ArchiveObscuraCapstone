@@ -113,7 +113,7 @@ namespace ArchiveObscura.Repositories
                                     SELECT r.Id, r.Title, r.ArtistName, r.Description, r.ImageUrl,
                                             r.DatePosted, r.TagId, r.UserProfileId,
                                             t.Id AS TagId, t.Name,
-                                            up.Id AS UserProfileId, up.Name AS UserProfileName
+                                            up.Id AS UserProfileId, up.Name AS UserProfileName, up.Email
                                     FROM Record r
                                     LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                     LEFT JOIN Tag t ON r.TagId = t.Id
@@ -144,7 +144,8 @@ namespace ArchiveObscura.Repositories
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                Name = DbUtils.GetString(reader, "Name")
+                                Name = DbUtils.GetString(reader, "Name"),
+                                Email = DbUtils.GetString(reader, "Email")
                             }
                         };
                         reader.Close();
