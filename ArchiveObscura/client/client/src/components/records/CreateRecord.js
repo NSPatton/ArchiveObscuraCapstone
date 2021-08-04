@@ -18,6 +18,29 @@ const RecordForm = () => {
 
     const [tag, setTag] = useState([]);
 
+    const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'nsprojects')
+        setLoading(true)
+        const res = await fetch(
+            '	https://api.cloudinary.com/v1_1/dzneo29rj/image/upload',
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+        const file = await res.json()
+
+        setImage(file.secure_url)
+        setLoading(false)
+        record.imageUrl = file.secure_url
+    }
+
     const history = useHistory();
 
     const handleInputChange = (evt) => {
@@ -73,9 +96,14 @@ const RecordForm = () => {
                     <Label for="description">Description</Label>
                     <Input id="description" type="text" description="description" placeholder="Description"
                         defaultValue={record.description} onChange={handleInputChange} />
-                    <Label for="imageUrl">Image Url</Label>
-                    <Input id="imageUrl" type="text" imageUrl="imageUrl" placeholder="ImageUrl"
-                        defaultValue={record.imageUrl} onChange={handleInputChange} />
+                    {/* <Label for="imageUrl">Image Url: </Label> */}
+                    <Input id="imageUrl" type="file" imageUrl="imageUrl" placeholder="Upload An Image"
+                        defaultValue={record.imageUrl} onChange={uploadImage} />
+                    {loading ? (
+                        <h3>Loading...</h3>
+                    ) : (
+                        <img src={image} style={{ width: '300px' }} />
+                    )}
                 </FormGroup>
                 <FormGroup>
                     <Label for="Tag">Tag</Label>
