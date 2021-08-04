@@ -2,8 +2,12 @@ import React from "react";
 import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom"
 import { deleteRecord } from "../../modules/recordManager";
+import firebase from "firebase/app"
+import "firebase/auth"
 
 const Record = ({ record, getRecords }) => {
+
+    const currentUser = firebase.auth().currentUser
 
     const deleteARecord = (event => {
         event.preventDefault()
@@ -12,6 +16,27 @@ const Record = ({ record, getRecords }) => {
             deleteRecord(record.id).then(() => { getRecords() })
         }
     })
+
+
+
+    const ShowEditAndDelete = () => {
+        if (currentUser.email === record.userProfile.email) {
+            return (
+                <>
+                    <div>
+                        <div className="editbutton">
+                            <Link to={`/edit/${record.id}`}>
+                                <button type="button" className="btn-primary-edit">Edit</button>
+                            </Link>
+                        </div>
+                        <button color="danger" onClick={deleteARecord}>Delete</button>
+                    </div>
+                </>
+            )
+        } else {
+            return null;
+        }
+    }
 
 
 
@@ -27,13 +52,8 @@ const Record = ({ record, getRecords }) => {
                     </Link>
                 </p>
                 <p>{record.title}</p>
-                <div className="editbutton">
-                    <Link to={`/edit/${record.id}`}>
-                        <button type="button" className="btn-primary-edit">Edit</button>
-                    </Link>
-                </div>
+                <ShowEditAndDelete />
                 <Link to={`/details/${record.id}`}><button>Details</button></Link>
-                <button color="danger" onClick={deleteARecord}>Delete</button>
             </CardBody>
         </Card >
     )
