@@ -20,7 +20,7 @@ const MyRecord = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     {records.map((record) => (
-                        <Record record={record} key={record.id} />
+                        <Record record={record} getRecords={getMyRecords} key={record.id} />
                     ))}
                 </div>
             </div>
