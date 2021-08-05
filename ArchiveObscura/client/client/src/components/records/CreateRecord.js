@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Form, FormGroup, Card, CardBody, Label, Input, Button } from "reactstrap";
 import { addRecord } from "../../modules/recordManager";
 import { getAllTags } from "../../modules/tagManager";
@@ -118,6 +118,9 @@ const RecordForm = () => {
                     </Input>
                 </FormGroup>
                 <Button className="btn btn-primary">Submit</Button>
+                <Link to="/">
+                    <Button className="btn-primary-button">Return</Button>
+                </Link>
             </Form>
         </>
     )
