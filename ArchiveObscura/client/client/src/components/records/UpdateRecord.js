@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input, Formtext } from "reactstrap";
 import { updateRecord, getRecordById } from "../../modules/recordManager";
 import { getAllTags } from "../../modules/tagManager"
@@ -83,6 +83,9 @@ const RecordEdit = () => {
                     </Input>
                 </FormGroup>
                 <Button className="btn btn-primary" disabled={isLoading} onClick={handleUpdate}>Submit</Button>
+                <Link to="/">
+                    <Button className="btn-primary-button">Return</Button>
+                </Link>
             </Form>
         </>
     )

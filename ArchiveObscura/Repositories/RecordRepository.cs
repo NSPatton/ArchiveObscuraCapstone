@@ -66,7 +66,7 @@ namespace ArchiveObscura.Repositories
 
                                     t.Name,
 
-                                    up.Name, up.Email, up.ImageUrl AS UserProfileImageUrl, up.FirebaseUserId
+                                    up.Name AS UserProfileName, up.Email, up.ImageUrl AS UserProfileImageUrl, up.FirebaseUserId
                                 FROM Record r
                                 LEFT JOIN UserProfile up ON r.UserProfileId = up.Id
                                 LEFT JOIN Tag t ON r.TagId = t.Id
@@ -83,13 +83,19 @@ namespace ArchiveObscura.Repositories
                             Title = DbUtils.GetString(reader, "Title"),
                             ArtistName = DbUtils.GetString(reader, "ArtistName"),
                             Description = DbUtils.GetString(reader, "Description"),
+                            TagId = DbUtils.GetInt(reader, "TagId"),
+                            Tag = new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                             DatePosted = DbUtils.GetDateTime(reader, "DatePosted"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                Name = DbUtils.GetString(reader, "Name"),
+                                Name = DbUtils.GetString(reader, "UserProfileName"),
                                 Email = DbUtils.GetString(reader, "Email"),
                                 ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl")
                             },
